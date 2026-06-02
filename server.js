@@ -202,7 +202,7 @@ let imgCache = { buf: null, ts: 0 };
 let stirlitzImgCache = { buf: null, ts: 0 };
 
 app.get("/joke.jpg", async (req, res) => {
-  console.log(`[${new Date().toISOString()}] GET /joke.jpg from ${req.ip}`);
+  console.log(`[${new Date().toISOString()}] GET /joke.jpg`);
   const now = Date.now();
 
   if (imgCache.buf && now - imgCache.ts < CACHE_TTL) {
@@ -232,25 +232,25 @@ app.get("/joke.jpg", async (req, res) => {
 });
 
 app.get("/joke.json", (req, res) => {
-  console.log(`[${new Date().toISOString()}] GET /joke.json from ${req.ip}`);
+  console.log(`[${new Date().toISOString()}] GET /joke.json`);
   const jokeHtml = randomItem(allJokes);
   res.json({ html: jokeHtml, text: htmlToText(jokeHtml) });
 });
 
 app.get("/stirlitz.json", (req, res) => {
-  console.log(`[${new Date().toISOString()}] GET /stirlitz.json from ${req.ip}`);
+  console.log(`[${new Date().toISOString()}] GET /stirlitz.json`);
   const joke = randomItem(stirlitzJokes);
   res.json({ text: joke });
 });
 
 app.get("/stirlitz", (req, res) => {
-  console.log(`[${new Date().toISOString()}] GET /stirlitz from ${req.ip}`);
+  console.log(`[${new Date().toISOString()}] GET /stirlitz`);
   const joke = randomItem(stirlitzJokes);
   res.send(renderPage(htmlEscape(joke), "/stirlitz", res.locals.nonce));
 });
 
 app.get("/stirlitz.jpg", async (req, res) => {
-  console.log(`[${new Date().toISOString()}] GET /stirlitz.jpg from ${req.ip}`);
+  console.log(`[${new Date().toISOString()}] GET /stirlitz.jpg`);
   const now = Date.now();
 
   if (stirlitzImgCache.buf && now - stirlitzImgCache.ts < CACHE_TTL) {
@@ -279,7 +279,7 @@ app.get("/stirlitz.jpg", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  console.log(`[${new Date().toISOString()}] GET / from ${req.ip}`);
+  console.log(`[${new Date().toISOString()}] GET /`);
   const joke = randomItem(allJokes);
   console.log(`[${new Date().toISOString()}] Serving joke (${joke.length} chars)`);
   res.send(renderPage(joke, "/", res.locals.nonce));
