@@ -231,6 +231,18 @@ app.get("/joke.jpg", async (req, res) => {
   }
 });
 
+app.get("/joke.json", (req, res) => {
+  console.log(`[${new Date().toISOString()}] GET /joke.json from ${req.ip}`);
+  const jokeHtml = randomItem(allJokes);
+  res.json({ html: jokeHtml, text: htmlToText(jokeHtml) });
+});
+
+app.get("/stirlitz.json", (req, res) => {
+  console.log(`[${new Date().toISOString()}] GET /stirlitz.json from ${req.ip}`);
+  const joke = randomItem(stirlitzJokes);
+  res.json({ text: joke });
+});
+
 app.get("/stirlitz", (req, res) => {
   console.log(`[${new Date().toISOString()}] GET /stirlitz from ${req.ip}`);
   const joke = randomItem(stirlitzJokes);
